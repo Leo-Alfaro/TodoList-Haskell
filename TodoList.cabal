@@ -1,0 +1,81 @@
+cabal-version: 2.2
+
+-- This file has been generated from package.yaml by hpack version 0.38.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           TodoList
+version:        0.1.0.0
+homepage:       https://github.com/lcssz/TodoList-Haskell#readme
+bug-reports:    https://github.com/lcssz/TodoList-Haskell/issues
+author:         Lucas Souza
+maintainer:     lcsszsoares@ufu.br
+copyright:      GPL-3.0
+license:        BSD-3-Clause
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/lcssz/TodoList-Haskell
+
+library
+  exposed-modules:
+      TodoList
+      TodoList.CLI.Interface
+      TodoList.Core.Deadline
+      TodoList.Core.Tags
+      TodoList.Core.TaskManager
+      TodoList.Core.Types
+      TodoList.Filters.CategoryFilter
+      TodoList.Filters.KeywordSearch
+      TodoList.Filters.PriorityFilter
+      TodoList.Filters.PrioritySorter
+      TodoList.Filters.StatusFilter
+      TodoList.Storage.Serialization
+      TodoList.Storage.TextFile
+  other-modules:
+      Paths_TodoList
+  autogen-modules:
+      Paths_TodoList
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , time
+  default-language: Haskell2010
+
+executable TodoList-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_TodoList
+  autogen-modules:
+      Paths_TodoList
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      TodoList
+    , base >=4.7 && <5
+    , time
+  default-language: Haskell2010
+
+test-suite TodoList-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_TodoList
+  autogen-modules:
+      Paths_TodoList
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      TodoList
+    , base >=4.7 && <5
+    , time
+  default-language: Haskell2010
