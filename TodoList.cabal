@@ -35,6 +35,7 @@ library
       TodoList.Filters.PriorityFilter
       TodoList.Filters.PrioritySorter
       TodoList.Filters.StatusFilter
+      TodoList.Filters.TagFilter
       TodoList.Storage.Serialization
       TodoList.Storage.TextFile
   other-modules:
