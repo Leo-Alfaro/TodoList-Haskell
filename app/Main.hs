@@ -4,6 +4,7 @@ import Data.Time.Calendar (fromGregorian)
 import TodoList.Core.Types
 import TodoList.Filters.CategoryFilter (categoryFilter)
 import TodoList.Filters.StatusFilter (filterByStatus)
+import TodoList.Storage.TextFile (readTextFile)
 
 main :: IO ()
 main = do
@@ -40,3 +41,5 @@ main = do
   mapM_ (putStrLn . show) tasks
   mapM_ (putStrLn . show) (filterByStatus Pending tasks)
   mapM_ (putStrLn . show) (categoryFilter Personal tasks)
+  contents <- readTextFile "data/file.txt"
+  putStrLn contents
