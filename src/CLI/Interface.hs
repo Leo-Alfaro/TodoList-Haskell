@@ -24,6 +24,27 @@ mainMenu tasks = do
     '2' -> do
       putStrLn "Gestão de Prazos selecionada."
       return tasks
+    '5' -> 
+      -- showReport tasks = do
+      --   putStrLn "Relatório Resumido:"
+      --   let totalTasks = length tasks
+      --   putStrLn $ " - Total de tarefas: " ++ show totalTasks
+      --   let pendingTasks = length (filterByStatus Pending tasks)
+      --   let completedTasks = length (filterByStatus Completed tasks)
+      --   putStrLn $ " - Pendentes: " ++ show pendingTasks ++ " | Concluídas: " ++ show completedTasks
+      --   if totalTasks > 0 then do
+      --   putStrLn $ "Distribuição por Categoria:"
+      --   let workTasks = length (categoryFilter Work tasks)
+      --   let studyTasks = length (categoryFilter Study tasks)
+      --   let personalTasks = length (categoryFilter Personal tasks)
+      --   let otherTasks = length (categoryFilter Other tasks)
+      --   putStrLn $ " * Trabalho: " ++ show workTasks ++ " (" ++ show (fromIntegral workTasks / fromIntegral totalTasks * 100) ++ "%)"
+      --   putStrLn $ " * Estudo: " ++ show studyTasks ++ " (" ++ show (fromIntegral studyTasks / fromIntegral totalTasks * 100) ++ "%)"
+      --   putStrLn $ " * Pessoal: " ++ show personalTasks ++ " (" ++ show (fromIntegral personalTasks / fromIntegral totalTasks * 100) ++ "%)"
+      --   putStrLn $ " * Outros: " ++ show otherTasks ++ " (" ++ show (fromIntegral otherTasks / fromIntegral totalTasks * 100) ++ "%)"
+      --   else putStrLn $ "Nenhuma tarefa cadastrada."
+      --   return tasks
     _ -> do
       putStrLn "Operação inválida"
       return tasks
+        
