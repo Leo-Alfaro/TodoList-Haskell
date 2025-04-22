@@ -1,45 +1,35 @@
 module Main (main) where
 
-import Data.Time.Calendar (fromGregorian)
-import TodoList.Core.Types
-import TodoList.Filters.CategoryFilter (categoryFilter)
-import TodoList.Filters.StatusFilter (filterByStatus)
-import TodoList.Storage.TextFile (readTextFile)
+import CLI.Interface
+import Persistence (readTextFile)
+import System.IO (BufferMode (NoBuffering), hSetBuffering, stdout)
+import Types
 
 main :: IO ()
 main = do
-  let tasks =
-        [ Task
-            { taskId = 1,
-              description = "Estudar Haskell",
-              status = Pending,
-              priority = High,
-              category = Study,
-              deadline = Just (fromGregorian 2025 4 15),
-              tags = ["urgente", "faculdade"]
-            },
-          Task
-            { taskId = 2,
-              description = "Reunião com cliente",
-              status = Completed,
-              priority = Medium,
-              category = Work,
-              deadline = Just (fromGregorian 2024 12 10),
-              tags = ["projeto", "apresentação"]
-            },
-          Task
-            { taskId = 3,
-              description = "Fazer exercícios",
-              status = Pending,
-              priority = Low,
-              category = Personal,
-              deadline = Nothing,
-              tags = ["saúde", "ginástica"]
-            }
-        ]
+  hSetBuffering stdout NoBuffering
+  putStrLn "Deseja iniciar com arquivo? (Deixe vazio caso contrário)"
+  putStr "Nome do arquivo: "
+  filename <- getLine
+  tasks <- loadInitialTasks filename
+  mainLoop tasks
 
-  mapM_ (putStrLn . show) tasks
-  mapM_ (putStrLn . show) (filterByStatus Pending tasks)
-  mapM_ (putStrLn . show) (categoryFilter Personal tasks)
-  contents <- readTextFile "data/file.txt"
-  putStrLn contents
+mainLoop :: [Task] -> IO ()
+mainLoop tasks = do
+  newTasks <- mainMenu tasks
+  mainLoop newTasks
+
+loadInitialTasks :: String -> IO [Task]
+loadInitialTasks fileName = do
+  if null fileName
+    then do
+      putStrLn "Iniciando com lista vazia."
+      return []
+    else do
+      result <- readTextFile fileName
+      case result of
+        Right tasks -> return tasks
+        Left err -> do
+          putStrLn $ "Erro: " ++ err
+          putStrLn "Iniciando com lista vazia."
+          return []
